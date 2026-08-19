@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AIRTICK — Ken Hung</title>
+<meta name="description" content="A digital clock with no circuit board. Every connection is bare copper wire soldered in mid-air, so the wiring is at once the circuit, the chassis and the lettering. AT89S51, 2019.">
+<link rel="canonical" href="https://khsandoki.github.io/projects/airtick.html">
+<meta property="og:type" content="article">
+<meta property="og:title" content="AIRTICK — a clock with no circuit board">
+<meta property="og:description" content="Bare copper wire soldered in mid-air: the circuit is the structure, and the structure is the object.">
+<meta property="og:image" content="https://khsandoki.github.io/media/airtick/hero.webp">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#0b0c0e">
+<link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400..700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/css/site.css">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="wrap">
+    <a class="brand" href="../">Ken Hung <span>/ KHSandoki</span></a>
+    <nav class="nav">
+      <a href="../#work">Work</a>
+      <a href="../#timeline" class="nav-hide-sm">Timeline</a>
+      <a href="../#about">About</a>
+      <a href="https://github.com/KHSandoki">GitHub</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+
+<section class="proj-hero">
+  <div class="wrap">
+    <a class="back" href="../#work">&larr; All work</a>
+    <h1>AIRTICK</h1>
+    <p class="tagline">
+      A digital clock with no circuit board and no insulated wire. Every connection is bare
+      copper soldered in mid-air &mdash; so the wiring is simultaneously the circuit, the
+      chassis, and the lettering.
+    </p>
+
+    <div class="hero-links">
+      <a class="btn" href="../assets/src/airtick-rtc.bas" download>Firmware source (.bas)</a>
+    </div>
+
+    <dl class="factbar">
+      <div><dt>Year</dt><dd>2019</dd></div>
+      <div><dt>Role</dt><dd>Sole designer and builder</dd></div>
+      <div><dt>Stack</dt><dd>AT89S51 (8051), BASCOM-8051, 7-segment displays</dd></div>
+      <div><dt>Entered</dt><dd>National High School Creative Invention Competition</dd></div>
+    </dl>
+
+    <figure class="shot">
+      <img src="../media/airtick/hero.webp" width="1800" height="1350" alt="AIRTICK: a digital clock built entirely from bent bare copper wire. Four red seven-segment digits float inside an open wire cube, with the word AIRTICK spelled out in wire along the base and resistors suspended in mid-air" loading="eager" decoding="async">
+      <figcaption>No PCB, no insulation, no enclosure. The wire holds the parts, carries the signals, and spells the name.</figcaption>
+    </figure>
+  </div>
+</section>
+
+<section class="section">
+  <div class="wrap prose">
+
+    <h3>The idea</h3>
+    <p>
+      Nearly every electronic product is built on a circuit board, and nearly every circuit
+      board is hidden inside a case. There are real reasons for that &mdash; but one of the
+      main ones is simply that a PCB is not much to look at. The result is that most people
+      have never actually seen the thing that makes their devices work.
+    </p>
+    <p>
+      AIRTICK inverts it. There is no board to hide, because there is no board. The circuit is
+      soldered together freeform from bare copper wire, with nothing insulated and nothing
+      covered, and it is the finished object rather than the thing inside the finished object.
+    </p>
+
+    <h3>The wire does three jobs</h3>
+    <p>
+      What makes freeform construction interesting is not that the components float &mdash; it
+      is that one material carries every function at once:
+    </p>
+    <ul>
+      <li><strong>Conductor.</strong> Every net is a bent length of bare copper. No insulation anywhere, which means every spacing is a design decision rather than something a solder mask handles for you.</li>
+      <li><strong>Structure.</strong> The same wire holds each component in position and forms the open cube the whole thing stands in. Stiffness comes from geometry, not from a substrate.</li>
+      <li><strong>Typography.</strong> The word <em>AIRTICK</em> along the base is bent from the same stock, and is part of the circuit's physical frame.</li>
+    </ul>
+    <p>
+      There is no layer to hide a mistake in, and no undo. A wrong bend is a rebuild.
+    </p>
+
+    <h3>Electronics</h3>
+    <p>
+      An <strong>AT89S51</strong> &mdash; the classic 8051 that every Taiwanese electronics
+      student meets first, chosen deliberately so that anyone with basic electronics training
+      could read the circuit and take the idea further. Four multiplexed seven-segment digits,
+      set buttons for hours and minutes, AM/PM indicators, and an alarm on a piezo.
+    </p>
+    <p>
+      The firmware is BASCOM-8051 BASIC. Timer 0 runs the timebase on interrupt and the main
+      loop carries the cascade &mdash; hundredths into seconds into minutes into hours &mdash;
+      while digits are refreshed from a segment-pattern lookup table. The table in the source
+      is commented with an ASCII diagram of a seven-segment digit, because working out which
+      bit is which segment at two in the morning is not something you want to do twice:
+    </p>
+
+<pre class="code"><span class="c">' 7 Segment Pattern Data</span>
+Const Segpat0 = &amp;B11000000     <span class="c">' 0   ****A***</span>
+Const Segpat1 = &amp;B11111100     <span class="c">' 1   *      *</span>
+Const Segpat2 = &amp;B10010010     <span class="c">' 2   F      B</span>
+Const Segpat3 = &amp;B10110000     <span class="c">' 3   *      *</span>
+Const Segpat4 = &amp;B10101100     <span class="c">' 4   ****G***</span>
+Const Segpat5 = &amp;B10100001     <span class="c">' 5   *      *</span>
+Const Segpat6 = &amp;B10000001     <span class="c">' 6   E      C</span>
+Const Segpat7 = &amp;B11101000     <span class="c">' 7   *      *</span>
+Const Segpat8 = &amp;B10000000     <span class="c">' 8   ****D***</span>
+Const Segpat9 = &amp;B10101000     <span class="c">' 9</span>
+Const Segpblk = &amp;B11111111     <span class="c">' 10 BLANK</span>
+<span class="c">'---------------------------------------------------------------</span>
+Hour10  <span class="k">Alias</span> P2.0
+Led_am  <span class="k">Alias</span> P2.1
+Led_pm  <span class="k">Alias</span> P2.2
+Piezo   <span class="k">Alias</span> P2.3
+</pre>
+
+    <p>
+      The source went through four revisions on the way to the competition; the version linked
+      above is the last one.
+    </p>
+
+    <h3>Why it was worth doing</h3>
+    <ul>
+      <li>
+        <strong>It is legible.</strong> You can trace the entire circuit by eye, component to
+        component, without a schematic. For anyone learning electronics that is worth more than
+        a tidier build.
+      </li>
+      <li>
+        <strong>No etching.</strong> Making a PCB means ferric chloride or similar, and small
+        workshops rarely dispose of it properly. Freeform construction skips that entirely.
+      </li>
+      <li>
+        <strong>No enclosure.</strong> Nothing moulded, nothing to throw away, nothing between
+        you and the circuit.
+      </li>
+      <li>
+        <strong>The form is free.</strong> The same circuit can be bent into any shape, which is
+        why it was also entered under the name <em>Shape-Shifting Electronic Clock</em>. The
+        electrical design constrains the topology, not the silhouette.
+      </li>
+    </ul>
+
+    <div class="gallery">
+      <figure>
+        <button type="button"
+          data-full="../media/airtick/hero.webp"
+          data-alt="AIRTICK photographed lit, showing red seven-segment digits inside an open bare-copper wire cube"
+          data-caption="AIRTICK, lit. Every visible wire is load-bearing in both senses.">
+          <img src="../media/airtick/hero@thumb.webp" alt="AIRTICK photographed lit, showing the wire structure" loading="lazy" decoding="async">
+        </button>
+        <figcaption>Every visible wire is load-bearing in both senses.</figcaption>
+      </figure>
+    </div>
+
+  </div>
+</section>
+
+<div class="wrap">
+  <nav class="pager">
+    <a href="rexxar.html"><span class="lbl">Previous</span>Rexxar</a>
+    <a href="illuminator.html"><span class="lbl">Next</span>Project Illuminator</a>
+  </nav>
+</div>
+
+</main>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <p>&copy; 2026 Ken Hung</p>
+    <nav>
+      <a href="../#work">Work</a>
+      <a href="../#about">About</a>
+      <a href="https://github.com/KHSandoki">GitHub</a>
+    </nav>
+  </div>
+</footer>
+
+<script src="../assets/js/site.js" defer></script>
+</body>
+</html>

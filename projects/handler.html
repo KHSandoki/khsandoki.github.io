@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Project Handler — Ken Hung</title>
+<meta name="description" content="A work-order and customer system for Taiwanese car repair shops, designed tablet-first and offline-tolerant. SvelteKit, Express, Prisma, PostgreSQL.">
+<link rel="canonical" href="https://khsandoki.github.io/projects/handler.html">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Project Handler — work orders for repair shops">
+<meta property="og:description" content="Tablet-first, offline-tolerant work-order software for Taiwanese car repair shops.">
+<meta name="theme-color" content="#0b0c0e">
+<link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400..700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/css/site.css">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="wrap">
+    <a class="brand" href="../">Ken Hung <span>/ KHSandoki</span></a>
+    <nav class="nav">
+      <a href="../#work">Work</a>
+      <a href="../#timeline" class="nav-hide-sm">Timeline</a>
+      <a href="../#about">About</a>
+      <a href="https://github.com/KHSandoki">GitHub</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+
+<section class="proj-hero">
+  <div class="wrap">
+    <a class="back" href="../#work">&larr; All work</a>
+    <h1>Project Handler</h1>
+    <p class="tagline">
+      Work-order and customer management for Taiwanese car repair shops &mdash; designed for
+      someone standing next to a car holding a tablet, not sitting at a desk.
+    </p>
+
+    <div class="hero-links">
+      <span class="btn btn-quiet">Private repository</span>
+      <a class="btn" href="mailto:k.h.sandoki@gmail.com?subject=Project%20Handler">Ask about the source</a>
+    </div>
+
+    <dl class="factbar">
+      <div><dt>Year</dt><dd>2025&ndash;2026</dd></div>
+      <div><dt>Role</dt><dd>Sole designer and developer</dd></div>
+      <div><dt>Stack</dt><dd>SvelteKit, Express + TypeScript, Prisma, PostgreSQL, Zod</dd></div>
+      <div><dt>Status</dt><dd>In development &mdash; schema and API contract done, UI underway</dd></div>
+    </dl>
+  </div>
+</section>
+
+<section class="section">
+  <div class="wrap prose">
+
+    <div class="callout">
+      <p>
+        <strong>Honest status:</strong> this one is not finished. The domain model, database
+        schema and migrations, and the shared validation package are complete and committed;
+        the interface is being built now. What follows is design reasoning, not a shipped
+        product.
+      </p>
+    </div>
+
+    <h3>The context</h3>
+    <p>
+      Small independent repair shops in Taiwan largely run on paper work orders, a whiteboard,
+      and LINE messages. Off-the-shelf garage software exists, but it is priced and shaped for
+      dealerships: too many fields, too many roles, and a desktop-era interface that assumes an
+      office.
+    </p>
+    <p>
+      The constraint that drives everything here is the physical situation of the user. They are
+      standing beside a car. Their hands are dirty. They are holding a tablet, one-handed, and
+      they have about twenty seconds before going back to the job. Anything requiring precision
+      tapping or a stable connection is a feature that will not get used.
+    </p>
+
+    <h3>Design decisions and why</h3>
+    <ul>
+      <li>
+        <strong>PWA, tablet-first, offline-tolerant.</strong> Workshop Wi-Fi is bad, and the
+        dead zone is always the far bay. Drafts auto-save locally, because losing a half-written
+        work order is worse than having no software at all &mdash; one bad experience and the
+        shop goes back to paper permanently.
+      </li>
+      <li>
+        <strong>Zod schemas shared between client and server</strong> through a pnpm workspace
+        package. Validation defined once, imported by both sides. The failure mode this avoids
+        is the classic one: the client thinks a field is optional, the server does not, and the
+        error surfaces in production as an unhelpful 400.
+      </li>
+      <li>
+        <strong>Session cookies rather than JWT.</strong> A shop tablet is a shared, long-lived
+        device that gets left on a bench. Being able to revoke a session server-side the moment
+        it goes missing matters far more than statelessness does at this scale, and there is
+        exactly one backend to keep state in.
+      </li>
+      <li>
+        <strong>Cursor pagination on <code>(created_at, id)</code>.</strong> Order history only
+        ever grows. Offset pagination gets slower every year the shop stays in business, and
+        it silently skips rows when new orders land mid-scroll.
+      </li>
+      <li>
+        <strong>Taiwan licence plate validation</strong> covering both the older
+        <code>ABC-1234</code> layout and the newer <code>1234-AB</code> one. The plate is the
+        natural key that shop staff actually think in &mdash; they will search by plate before
+        they search by name, every time.
+      </li>
+      <li>
+        <strong>Transactions in the service layer, not the route handlers.</strong> A work order
+        and its line items have to land together or not at all; keeping that boundary in one
+        place is what stops half-written orders appearing after a dropped connection.
+      </li>
+    </ul>
+
+    <h3>Where it stands</h3>
+    <p>
+      An earlier iteration of this project explored a NestJS backend before I moved to plain
+      Express with TypeScript &mdash; the framework was adding structure the problem did not
+      have, and the layering cost more than it returned at this size.
+    </p>
+    <p>
+      Current state: Prisma schema and initial migration, seed data, the shared Zod schema
+      package, and the API contract. The SvelteKit front end is the active work.
+    </p>
+
+  </div>
+</section>
+
+<div class="wrap">
+  <nav class="pager">
+    <a href="clauge.html"><span class="lbl">Previous</span>Clauge</a>
+    <a href="kkcom.html"><span class="lbl">Next</span>KKCOM</a>
+  </nav>
+</div>
+
+</main>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <p>&copy; 2026 Ken Hung</p>
+    <nav>
+      <a href="../#work">Work</a>
+      <a href="../#about">About</a>
+      <a href="https://github.com/KHSandoki">GitHub</a>
+    </nav>
+  </div>
+</footer>
+
+<script src="../assets/js/site.js" defer></script>
+</body>
+</html>

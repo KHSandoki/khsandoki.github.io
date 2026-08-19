@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Project Illuminator — Ken Hung</title>
+<meta name="description" content="A working FDM 3D printer built from scrapped optical drives for under NT$2,000, then extended with a conveyor bed that ejects finished prints automatically.">
+<link rel="canonical" href="https://khsandoki.github.io/projects/illuminator.html">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Project Illuminator — a 3D printer made from e-waste">
+<meta property="og:description" content="Three stepper sleds from scrapped optical drives, a salvaged ATX supply, and ten months. Under NT$2,000.">
+<meta property="og:image" content="https://khsandoki.github.io/media/illuminator/machine.webp">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#0b0c0e">
+<link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400..700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/css/site.css">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="wrap">
+    <a class="brand" href="../">Ken Hung <span>/ KHSandoki</span></a>
+    <nav class="nav">
+      <a href="../#work">Work</a>
+      <a href="../#timeline" class="nav-hide-sm">Timeline</a>
+      <a href="../#about">About</a>
+      <a href="https://github.com/KHSandoki">GitHub</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+
+<section class="proj-hero">
+  <div class="wrap">
+    <a class="back" href="../#work">&larr; All work</a>
+    <h1>Project Illuminator</h1>
+    <p class="tagline">
+      A working FDM 3D printer built from the corpses of scrapped optical drives, for under
+      NT$2,000 &mdash; then given a conveyor bed so it could eject its own prints and start
+      the next job unattended.
+    </p>
+
+    <dl class="factbar">
+      <div><dt>Year</dt><dd>2018&ndash;2019</dd></div>
+      <div><dt>Role</dt><dd>Sole designer and builder</dd></div>
+      <div><dt>Stack</dt><dd>Arduino Mega, RAMPS 1.4, Repetier, salvaged steppers</dd></div>
+      <div><dt>Cost</dt><dd>Under NT$2,000 (~US$65)</dd></div>
+    </dl>
+
+    <figure class="shot">
+      <img src="../media/illuminator/machine.webp" width="1800" height="1350" alt="The Illuminator 3D printer: a small machine built from optical drive steel plates, with a white paper belt stretched across its bed" loading="eager" decoding="async">
+      <figcaption>Illuminator with the MANUStar conveyor bed fitted. Almost every structural panel is the steel chassis plate of a dead optical drive.</figcaption>
+    </figure>
+  </div>
+</section>
+
+<section class="section">
+  <div class="wrap prose">
+
+    <h3>Why build one at all</h3>
+    <p>
+      In 2018 I was a student in the electronics department of a vocational high school, and
+      owning a 3D printer was out of reach &mdash; the cheap machines still cost more than a
+      student could justify. What I did have access to was a steady supply of dead computers,
+      because the school threw them away.
+    </p>
+    <p>
+      I had seen people convert a scrapped optical drive into a small laser engraver. The
+      laser pickup inside every CD or DVD drive rides on a precision sled driven by a stepper
+      motor: it is, already, a finished linear axis with the hard engineering done. If two of
+      those give you X and Y, then adding a third for Z and hanging a plastic extruder off it
+      gets you a 3D printer.
+    </p>
+
+    <h3>Where it actually started: the pen plotter</h3>
+    <p>
+      Before the printer there was a plotter. Two salvaged sleds, a pen held in a wooden
+      block, and paper taped to a scrap of MDF. It had no Z axis worth the name and it could
+      only draw, but it proved out the part I was least sure of &mdash; that drive sleds could
+      be driven accurately enough by G-code to produce something recognisable.
+    </p>
+    <p>
+      One plot took fifty-two minutes and came out as a stippled portrait of Einstein. That
+      was the moment the rest of the project became obviously possible.
+    </p>
+
+    <div class="gallery">
+      <figure>
+        <button type="button"
+          data-full="../media/illuminator/plotter.webp"
+          data-alt="A pen plotter built from optical drive parts, pen held in a wooden block above paper taped to a board"
+          data-caption="The plotter: two salvaged sleds, a pen, and a lot of masking tape.">
+          <img src="../media/illuminator/plotter@thumb.webp" alt="A pen plotter built from optical drive parts" loading="lazy" decoding="async">
+        </button>
+        <figcaption>The precursor machine. No heat, no extruder &mdash; just proving the axes could track G-code.</figcaption>
+      </figure>
+      <figure>
+        <button type="button"
+          data-full="../media/illuminator/plotter-pen.webp"
+          data-alt="The plotter drawing the word Illuminator in cursive on paper"
+          data-caption="Signing its own name.">
+          <img src="../media/illuminator/plotter-pen@thumb.webp" alt="The plotter drawing the word Illuminator in cursive" loading="lazy" decoding="async">
+        </button>
+        <figcaption>Signing its own name.</figcaption>
+      </figure>
+      <figure>
+        <button type="button"
+          data-full="../media/illuminator/plotter-art.webp"
+          data-alt="A finished stippled pen portrait of Albert Einstein drawn by the plotter"
+          data-caption="Fifty-two minutes of continuous plotting.">
+          <img src="../media/illuminator/plotter-art@thumb.webp" alt="A stippled pen portrait drawn by the plotter" loading="lazy" decoding="async">
+        </button>
+        <figcaption>Fifty-two minutes of continuous plotting, and the reason I kept going.</figcaption>
+      </figure>
+    </div>
+
+    <h3>Turning it into a printer</h3>
+    <p>
+      The finished machine is three stepper modules and an extruder. X and Z are optical-drive
+      laser sleds, used essentially as they came out of the drive. The structure is the drive
+      chassis plates themselves &mdash; already flat, already stiff, already drilled, and free.
+      Power comes from an ATX supply pulled out of a scrapped desktop, which conveniently
+      provides the 12&nbsp;V the heater and steppers want.
+    </p>
+    <p>
+      Control is an Arduino Mega with a RAMPS 1.4 shield running Repetier firmware, driven from
+      Repetier-Host on a PC. Choosing the standard open-source stack was deliberate: it meant
+      the parts of the problem that were already solved &mdash; slicing, motion planning,
+      thermal control &mdash; stayed solved, and I could spend the time on the mechanical work
+      that was actually specific to this machine.
+    </p>
+
+    <div class="gallery">
+      <figure>
+        <button type="button"
+          data-full="../media/illuminator/drive-sled.webp"
+          data-alt="An opened optical drive showing the laser pickup riding on a lead screw and guide rail"
+          data-caption="The raw material: a laser pickup sled, which is a complete precision linear axis.">
+          <img src="../media/illuminator/drive-sled@thumb.webp" alt="An opened optical drive showing the laser pickup sled" loading="lazy" decoding="async">
+        </button>
+        <figcaption>The raw material &mdash; a laser pickup sled is a complete precision linear axis, free.</figcaption>
+      </figure>
+      <figure>
+        <button type="button"
+          data-full="../media/illuminator/chassis.webp"
+          data-alt="A bare steel optical drive chassis plate held in a hand"
+          data-caption="Drive chassis plate: flat, stiff, pre-drilled, free.">
+          <img src="../media/illuminator/chassis@thumb.webp" alt="A bare steel optical drive chassis plate" loading="lazy" decoding="async">
+        </button>
+        <figcaption>Structure, before it was structure.</figcaption>
+      </figure>
+      <figure>
+        <button type="button"
+          data-full="../media/illuminator/electronics.webp"
+          data-alt="An Arduino Mega with a RAMPS 1.4 shield, ribbon cables running off to stepper drivers"
+          data-caption="Arduino Mega + RAMPS 1.4 running Repetier firmware.">
+          <img src="../media/illuminator/electronics@thumb.webp" alt="An Arduino Mega with a RAMPS 1.4 shield and wiring" loading="lazy" decoding="async">
+        </button>
+        <figcaption>Arduino Mega and RAMPS 1.4 &mdash; the one part of the machine that was bought.</figcaption>
+      </figure>
+      <figure>
+        <button type="button"
+          data-full="../media/illuminator/extruder.webp"
+          data-alt="Close-up of the hot end and extruder motor mounted on the printer"
+          data-caption="Hot end and extruder assembly.">
+          <img src="../media/illuminator/extruder@thumb.webp" alt="Close-up of the hot end and extruder motor" loading="lazy" decoding="async">
+        </button>
+        <figcaption>Hot end and extruder &mdash; the part with no salvageable equivalent.</figcaption>
+      </figure>
+    </div>
+
+    <h3>MANUStar: making the Y axis do something else</h3>
+    <p>
+      The obvious complaint about the first machine was the same one every hobby printer has:
+      it prints one thing, then stops and waits for a human to come and take it off the bed.
+      For a machine this small, the waiting is most of the total time.
+    </p>
+    <p>
+      So the second revision replaced the Y axis entirely. Instead of a moving platform, the
+      bed became a <strong>paper belt running between two rollers</strong>, one of them driven
+      by the Y stepper. During a print the belt indexes back and forth like a normal Y axis.
+      When the print finishes, the belt keeps going, the part rolls off the end, and the next
+      job starts on clean bed surface.
+    </p>
+    <div class="callout">
+      <p>
+        The same motor, the same driver, the same axis in the firmware &mdash; one mechanism
+        doing two jobs. It cost nothing to add, which was the whole point.
+      </p>
+    </div>
+    <p>
+      This version was entered as <em>Eco-friendly Automated 3D Printing System</em>, and it is
+      the one that made the project feel finished rather than merely working.
+    </p>
+
+    <div class="gallery">
+      <figure>
+        <button type="button"
+          data-full="../media/illuminator/conveyor.webp"
+          data-alt="Side view of the printer showing the paper belt stretched between two rollers as the print bed"
+          data-caption="The Y axis as a paper belt between two rollers.">
+          <img src="../media/illuminator/conveyor@thumb.webp" alt="Side view of the printer showing the paper belt bed" loading="lazy" decoding="async">
+        </button>
+        <figcaption>The Y axis, reimagined as a belt. The right-hand roller is driven by the original Y stepper.</figcaption>
+      </figure>
+      <figure>
+        <button type="button"
+          data-full="../media/illuminator/auto-eject.webp"
+          data-alt="A printed lattice tube lying on the paper conveyor belt after being ejected"
+          data-caption="A finished part, ejected by the belt without anyone touching the machine.">
+          <img src="../media/illuminator/auto-eject@thumb.webp" alt="A printed lattice tube lying on the paper conveyor belt" loading="lazy" decoding="async">
+        </button>
+        <figcaption>Ejected, untouched. The bed is already clean for the next job.</figcaption>
+      </figure>
+    </div>
+
+    <h3>What it printed</h3>
+    <p>
+      Not fast, and not fine &mdash; the build volume is roughly the footprint of the drives it
+      is made of. But it printed real parts in PLA: mechanical bits, test geometry, and the
+      inevitable useless box. Side by side with commercial entry-level machines of the time,
+      the output was closer than the ten-fold price difference suggested.
+    </p>
+
+    <div class="gallery">
+      <figure>
+        <button type="button"
+          data-full="../media/illuminator/print-hi.webp"
+          data-alt="The word hi printed in white PLA standing on the print bed, nozzle just above"
+          data-caption="First legible print.">
+          <img src="../media/illuminator/print-hi@thumb.webp" alt="The word hi printed in white PLA on the bed" loading="lazy" decoding="async">
+        </button>
+        <figcaption>First legible print.</figcaption>
+      </figure>
+      <figure>
+        <button type="button"
+          data-full="../media/illuminator/print-egg.webp"
+          data-alt="A low-poly faceted egg printed in white PLA"
+          data-caption="Low-poly egg — a curvature and overhang test.">
+          <img src="../media/illuminator/print-egg@thumb.webp" alt="A low-poly faceted egg printed in white PLA" loading="lazy" decoding="async">
+        </button>
+        <figcaption>Curvature and overhang test.</figcaption>
+      </figure>
+      <figure>
+        <button type="button"
+          data-full="../media/illuminator/print-bust.webp"
+          data-alt="A printed white bust figurine standing next to the printer"
+          data-caption="A bust print — fine detail at the limit of what the machine could hold.">
+          <img src="../media/illuminator/print-bust@thumb.webp" alt="A printed white bust figurine" loading="lazy" decoding="async">
+        </button>
+        <figcaption>At the limit of what the salvaged axes could resolve.</figcaption>
+      </figure>
+      <figure>
+        <button type="button"
+          data-full="../media/illuminator/hero.webp"
+          data-alt="Full front view of the finished Illuminator 3D printer on a desk"
+          data-caption="The finished machine.">
+          <img src="../media/illuminator/hero@thumb.webp" alt="Full front view of the finished Illuminator 3D printer" loading="lazy" decoding="async">
+        </button>
+        <figcaption>The finished machine, ten months in.</figcaption>
+      </figure>
+    </div>
+
+    <h3>Where it went</h3>
+    <ul>
+      <li>
+        <strong>National Senior High School Special Topic &amp; Creative Project Competition</strong>
+        &mdash; Electrical &amp; Electronic Engineering group, creative division. Entered two
+        years running, the second year as the automated conveyor version.
+      </li>
+      <li>
+        <strong>National High School Creative Invention Competition</strong> (hosted by Far East
+        University of Technology) &mdash; entered as <em>Illuminator: a 3D printer made from
+        scrapped optical drive parts</em>.
+      </li>
+    </ul>
+
+    <h3>What I took from it</h3>
+    <p>
+      Ten months of evenings, and most of them were spent on problems that do not appear
+      anywhere in a build log: getting a salvaged sled to hold position under load, keeping a
+      belt tracking straight, finding out that the first extruder design simply could not push
+      filament hard enough. The failures were the education.
+    </p>
+    <p>
+      The conclusion I still carry is the one in the competition write-up: the expensive part
+      of most products is the packaging, not the capability. If you are willing to do the
+      integration yourself, a surprising amount of capability is already lying in the bin.
+    </p>
+
+  </div>
+</section>
+
+<div class="wrap">
+  <nav class="pager">
+    <a href="airtick.html"><span class="lbl">Previous</span>AIRTICK</a>
+    <a href="../#work"><span class="lbl">Index</span>All work</a>
+  </nav>
+</div>
+
+</main>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <p>&copy; 2026 Ken Hung</p>
+    <nav>
+      <a href="../#work">Work</a>
+      <a href="../#about">About</a>
+      <a href="https://github.com/KHSandoki">GitHub</a>
+    </nav>
+  </div>
+</footer>
+
+<script src="../assets/js/site.js" defer></script>
+</body>
+</html>

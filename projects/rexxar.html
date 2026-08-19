@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Rexxar — Ken Hung</title>
+<meta name="description" content="A 3D printer built from the CR-10 CAD rather than a kit: extrusion cut to length by hand, parts sourced individually, Klipper firmware and a Voron toolhead, for under NT$7,000.">
+<link rel="canonical" href="https://khsandoki.github.io/projects/rexxar.html">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Rexxar — a printer from a blueprint and a parts list">
+<meta property="og:description" content="CR-10 CAD, hand-cut extrusion, Klipper, Voron toolhead. Under NT$7,000.">
+<meta property="og:image" content="https://khsandoki.github.io/media/rexxar/hero.webp">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#0b0c0e">
+<link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400..700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/css/site.css">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="wrap">
+    <a class="brand" href="../">Ken Hung <span>/ KHSandoki</span></a>
+    <nav class="nav">
+      <a href="../#work">Work</a>
+      <a href="../#timeline" class="nav-hide-sm">Timeline</a>
+      <a href="../#about">About</a>
+      <a href="https://github.com/KHSandoki">GitHub</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+
+<section class="proj-hero">
+  <div class="wrap">
+    <a class="back" href="../#work">&larr; All work</a>
+    <h1>Rexxar</h1>
+    <p class="tagline">
+      A second self-built 3D printer, four years after the first &mdash; this time from
+      published CAD and a parts list instead of a scrap bin. Under NT$7,000, running Klipper
+      with a Voron toolhead.
+    </p>
+
+    <dl class="factbar">
+      <div><dt>Year</dt><dd>2022</dd></div>
+      <div><dt>Role</dt><dd>Sole builder</dd></div>
+      <div><dt>Stack</dt><dd>Klipper, Voron toolhead, aluminium extrusion, printed parts</dd></div>
+      <div><dt>Cost</dt><dd>Under NT$7,000 (~US$220)</dd></div>
+    </dl>
+
+    <figure class="shot tall">
+      <img src="../media/rexxar/hero.webp" width="1800" height="1800" alt="A teal, low-poly faceted 3D-printed toolhead shroud with two circular fan ports and a bed light, mounted on the black gantry of a 3D printer" loading="eager" decoding="async">
+      <figcaption>The toolhead: a Voron assembly behind a printed low-poly shroud carrying the part-cooling ducts and a bed light.</figcaption>
+    </figure>
+  </div>
+</section>
+
+<section class="section">
+  <div class="wrap prose">
+
+    <h3>From a blueprint, not a kit</h3>
+    <p>
+      Rexxar started from the CR-10's published F3D CAD. Rather than buying the kit, I used the
+      model as a dimensioned reference: cut the aluminium extrusion to length myself, and sourced
+      every motor, rail, driver and fastener individually.
+    </p>
+    <p>
+      The whole machine came in under NT$7,000 &mdash; a fraction of an assembled printer of the
+      same size. Buying parts one at a time is slower and involves more decisions, but it is also
+      the difference between owning a machine and understanding one. Every dimension in the frame
+      was a number I had to look up and cut to.
+    </p>
+
+    <h3>Klipper instead of Marlin</h3>
+    <p>
+      The board runs <strong>Klipper</strong>, which moves motion planning off the microcontroller
+      and onto a host computer. Three things follow from that, and they are why the choice was
+      worth making:
+    </p>
+    <ul>
+      <li>
+        <strong>Input shaping and pressure advance</strong> become practical, because there is
+        real compute available to do the maths. Ringing and corner bulge stop being things you
+        live with.
+      </li>
+      <li>
+        <strong>Configuration is a text file.</strong> Change a value, reload, test &mdash; no
+        firmware rebuild, no reflash. On a machine you are still tuning, that turns an
+        afternoon's iteration into a few minutes.
+      </li>
+      <li>
+        <strong>The 8-bit ceiling disappears.</strong> The microcontroller only steps motors;
+        it is no longer the thing limiting how fast the machine can be driven.
+      </li>
+    </ul>
+
+    <h3>The toolhead</h3>
+    <p>
+      The stock CR-10 hot end assembly was replaced with a <strong>Voron toolhead</strong>. The
+      teal low-poly shroud in the photographs is a printed cover for it, carrying the part-cooling
+      ducts and a light aimed at the bed &mdash; which sounds cosmetic until the first time you
+      check a first layer without having to find a torch.
+    </p>
+    <p>
+      A printer printing its own parts is the pleasant part of this hobby: the shroud was designed,
+      printed, found wanting, and reprinted several times, each iteration made by the machine it
+      was for.
+    </p>
+
+    <div class="callout">
+      <p>
+        Four years separate Rexxar from <a href="illuminator.html">Illuminator</a>, and the
+        instinct is identical &mdash; get the capability without paying for the packaging. What
+        changed is that by 2022 the open-source ecosystem had done the hard parts for me. In 2018
+        I was cutting steel out of dead optical drives; in 2022 I was choosing between two
+        excellent free firmwares.
+      </p>
+    </div>
+
+    <div class="gallery">
+      <figure>
+        <button type="button"
+          data-full="../media/rexxar/hero.webp"
+          data-alt="The teal low-poly toolhead shroud lit from below, mounted on the printer gantry"
+          data-caption="The toolhead shroud, bed light on.">
+          <img src="../media/rexxar/hero@thumb.webp" alt="The teal low-poly toolhead shroud with bed light on" loading="lazy" decoding="async">
+        </button>
+        <figcaption>Bed light on &mdash; the reason the shroud exists.</figcaption>
+      </figure>
+      <figure>
+        <button type="button"
+          data-full="../media/rexxar/toolhead.webp"
+          data-alt="Closer view of the printed toolhead shroud showing the wiring loom running to the gantry"
+          data-caption="The wiring loom running back along the gantry.">
+          <img src="../media/rexxar/toolhead@thumb.webp" alt="Closer view of the toolhead shroud and wiring loom" loading="lazy" decoding="async">
+        </button>
+        <figcaption>Loom running back along the X gantry.</figcaption>
+      </figure>
+    </div>
+
+  </div>
+</section>
+
+<div class="wrap">
+  <nav class="pager">
+    <a href="sym-wolf-125.html"><span class="lbl">Previous</span>SYM Wolf 125</a>
+    <a href="airtick.html"><span class="lbl">Next</span>AIRTICK</a>
+  </nav>
+</div>
+
+</main>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <p>&copy; 2026 Ken Hung</p>
+    <nav>
+      <a href="../#work">Work</a>
+      <a href="../#about">About</a>
+      <a href="https://github.com/KHSandoki">GitHub</a>
+    </nav>
+  </div>
+</footer>
+
+<script src="../assets/js/site.js" defer></script>
+</body>
+</html>

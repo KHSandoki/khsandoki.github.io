@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Clauge — Ken Hung</title>
+<meta name="description" content="An ESP32-C3 ambient light bar that fills as your Claude usage limit fills. Fetches usage autonomously, updates itself over the air, and gets past Cloudflare with help from a browser extension.">
+<link rel="canonical" href="https://khsandoki.github.io/projects/clauge.html">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Clauge — an ambient LED usage gauge">
+<meta property="og:description" content="A light bar that fills as your usage limit fills. Runs without your computer.">
+<meta property="og:image" content="https://khsandoki.github.io/media/clauge/hero.webp">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#0b0c0e">
+<link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400..700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/css/site.css">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="wrap">
+    <a class="brand" href="../">Ken Hung <span>/ KHSandoki</span></a>
+    <nav class="nav">
+      <a href="../#work">Work</a>
+      <a href="../#timeline" class="nav-hide-sm">Timeline</a>
+      <a href="../#about">About</a>
+      <a href="https://github.com/KHSandoki">GitHub</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+
+<section class="proj-hero">
+  <div class="wrap">
+    <a class="back" href="../#work">&larr; All work</a>
+    <h1>Clauge</h1>
+    <p class="tagline">
+      An ambient LED gauge that fills up as you burn through your Claude usage limit &mdash;
+      so you see the wall coming before you hit it mid-task.
+    </p>
+
+    <div class="hero-links">
+      <span class="btn btn-quiet">Private repository</span>
+      <a class="btn" href="mailto:k.h.sandoki@gmail.com?subject=Clauge">Ask about the source</a>
+    </div>
+
+    <dl class="factbar">
+      <div><dt>Year</dt><dd>2026 &middot; 122 commits, Apr&ndash;Jul</dd></div>
+      <div><dt>Role</dt><dd>Firmware, hardware, extension, enclosure</dd></div>
+      <div><dt>Stack</dt><dd>ESP32-C3, C++, WS2812B, Chrome MV3</dd></div>
+      <div><dt>Status</dt><dd>Working device, private repo</dd></div>
+    </dl>
+
+    <figure class="shot">
+      <img src="../media/clauge/hero.webp" width="1800" height="1200" alt="Clauge: a matte black light bar on a dark surface, its face glowing in a smooth blue-to-magenta gradient, reflected below" loading="eager" decoding="async">
+      <figcaption>48 LEDs in a 16&times;3 grid, diffused into one continuous bar. The fill level is the usage level.</figcaption>
+    </figure>
+  </div>
+</section>
+
+<section class="section">
+  <div class="wrap prose">
+
+    <h3>The problem</h3>
+    <p>
+      You find out you have hit a usage limit at exactly the wrong moment: mid-task, mid-thought,
+      with the work half-done. The information exists beforehand, but it lives behind a menu, and
+      a number you have to go and look for is a number you will not look for.
+    </p>
+    <p>
+      Clauge&mdash;<em>Claude</em> + <em>gauge</em>&mdash;puts it in your peripheral vision
+      instead. A minimal light bar that fills left to right as the limit fills. No screen, no
+      mascot, no notification. You read it the way you read a fuel gauge, without deciding to.
+    </p>
+
+    <h3>It runs without your computer</h3>
+    <p>
+      This is the part I care most about. The ESP32-C3 calls the usage API itself over HTTPS and
+      drives the LEDs from firmware. Unplug the PC, close the laptop, go to bed &mdash; the bar
+      keeps updating.
+    </p>
+    <p>
+      The cadence defaults to five minutes, but the device does not hard-code it: it
+      <strong>learns the real interval from the extension's pushes</strong> and persists it, so
+      the two stay on the same rhythm instead of drifting into redundant fetches. When a push
+      arrives that is younger than the poll interval, the device stands down rather than asking
+      again.
+    </p>
+    <p>
+      Most comparable builds are a display for a script running on the host: the moment that
+      process quits, the device freezes on its last value and quietly lies to you. A gauge you
+      cannot trust when you are not looking at the computer is not an ambient device, it is a
+      second window.
+    </p>
+
+    <h3>Getting past Cloudflare</h3>
+    <p>
+      There is a good reason those other builds delegate to the host. claude.ai sits behind
+      Cloudflare, and an ESP32 hitting the API cold gets a Managed Challenge it has no way to
+      solve.
+    </p>
+    <p>
+      The workaround is a Chrome MV3 extension that acts as a <strong>credential courier</strong>.
+      It posts the browser's own <code>sessionKey</code> and <code>cf_clearance</code> to the
+      device over the LAN, and sends a heartbeat every ten seconds so it can tell when the device
+      has rebooted and needs them again. Once the device has the cookies it is on its own: it
+      makes the HTTPS call, parses the response, and drives the LEDs itself.
+    </p>
+    <div class="callout">
+      <p>
+        Both sides call the API, deliberately. The extension's call feeds the popup UI on your
+        computer; the device's call feeds the LEDs and is what lets it survive the computer being
+        switched off. The extension is an optional courier, not a required middleman.
+      </p>
+    </div>
+
+    <h3>Making 48 LEDs look like one bar</h3>
+    <p>
+      A row of addressable LEDs behind a diffuser reads as a row of addressable LEDs unless you
+      work at it. Three things fix that:
+    </p>
+    <ul>
+      <li>
+        <strong>16&times;3 instead of 16&times;1.</strong> Three rows deep gives the diffuser
+        enough light to blend vertically, so the bar has a face rather than a line of dots.
+      </li>
+      <li>
+        <strong>An OkLab colour ramp.</strong> Interpolating in a perceptually uniform space means
+        the gradient has no dead zones or sudden bright bands, which sRGB interpolation always
+        produces somewhere in the middle.
+      </li>
+      <li>
+        <strong>A sub-pixel leading edge.</strong> The fill front is rendered between LEDs by
+        splitting brightness across the boundary pair, so the bar advances smoothly instead of
+        jumping a whole LED at a time. Resolution ends up far finer than the LED pitch.
+      </li>
+    </ul>
+    <p>
+      On top of that there are fourteen live animation modes &mdash; a non-Newtonian fluid
+      simulation, a curl-noise flow field, shallow-water waves, plasma, aurora, a lava-lamp
+      metaball field &mdash; switchable from the extension popup. They are not the point of the
+      device, but a light bar sitting at 20% all afternoon may as well be interesting.
+    </p>
+
+    <h3>Firmware you can update without a cable</h3>
+    <p>
+      The device lives on a shelf, not on a bench, so reflashing over USB was never going to be
+      acceptable. The firmware uses the ESP32's dual-slot OTA layout: a new image is written to
+      the inactive slot, verified by SHA-256, and booted once on probation. If it fails to check
+      in, the bootloader rolls back to the previous slot automatically. Releases go out in
+      gray-scale stages rather than to every device at once.
+    </p>
+    <p>
+      That is more update machinery than a personal project needs. I built it because getting OTA
+      wrong is how a hobby device becomes permanently bricked hardware on a shelf, and I wanted to
+      know how the safe version is actually put together.
+    </p>
+
+    <h3>Hardware notes</h3>
+    <ul>
+      <li>
+        <strong>ESP32-C3 Super Mini</strong>, 4&nbsp;MB flash split into two 1.6&nbsp;MB
+        application slots so an update always has somewhere safe to land.
+      </li>
+      <li>
+        <strong>The boot self-test caps its own brightness.</strong> All-white at a saved
+        brightness of 255 peaks near 3&nbsp;A, which brownout-resets a weak USB port. Because the
+        self-test runs on every boot, that is not a glitch you notice once &mdash; it is a boot
+        loop with no exit. The white phase is clamped for exactly that reason.
+      </li>
+      <li>
+        A 61-LED variant is supported behind a compile-time <code>LED_MODULE</code> switch, with
+        its own serpentine column map &mdash; left over from a cost-down pass on the panel.
+      </li>
+    </ul>
+
+    <div class="gallery">
+      <figure>
+        <button type="button"
+          data-full="../media/clauge/hero.webp"
+          data-alt="The finished Clauge light bar glowing blue to magenta on a dark surface"
+          data-caption="The finished device.">
+          <img src="../media/clauge/hero@thumb.webp" alt="The finished Clauge light bar glowing" loading="lazy" decoding="async">
+        </button>
+        <figcaption>The finished device.</figcaption>
+      </figure>
+      <figure>
+        <button type="button"
+          data-full="../media/clauge/bench.webp"
+          data-alt="The Clauge hardware photographed on the bench"
+          data-caption="On the bench.">
+          <img src="../media/clauge/bench@thumb.webp" alt="The Clauge hardware on the bench" loading="lazy" decoding="async">
+        </button>
+        <figcaption>On the bench.</figcaption>
+      </figure>
+    </div>
+
+  </div>
+</section>
+
+<div class="wrap">
+  <nav class="pager">
+    <a href="../#work"><span class="lbl">Index</span>All work</a>
+    <a href="handler.html"><span class="lbl">Next</span>Project Handler</a>
+  </nav>
+</div>
+
+</main>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <p>&copy; 2026 Ken Hung</p>
+    <nav>
+      <a href="../#work">Work</a>
+      <a href="../#about">About</a>
+      <a href="https://github.com/KHSandoki">GitHub</a>
+    </nav>
+  </div>
+</footer>
+
+<script src="../assets/js/site.js" defer></script>
+</body>
+</html>

@@ -1,10 +1,347 @@
 <!DOCTYPE html>
-<html>
-  <head>
-    <meta charset="utf-8">
-    <title>你好，GitHub</title>
-  </head>
-  <body>
-    <h1>覺得厲害</h1>
-  </body>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ken Hung — Hardware &amp; Software Portfolio</title>
+<meta name="description" content="Portfolio of Ken Hung (KHSandoki): embedded firmware, C++ tooling, web applications, and machines built from salvaged parts. Taiwan.">
+<meta name="author" content="Ken Hung">
+<link rel="canonical" href="https://khsandoki.github.io/">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Ken Hung — Hardware &amp; Software Portfolio">
+<meta property="og:description" content="Embedded firmware, C++ tooling, web applications, and machines built from salvaged parts.">
+<meta property="og:url" content="https://khsandoki.github.io/">
+<meta property="og:image" content="https://khsandoki.github.io/media/clauge/hero.webp">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#0b0c0e">
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400..700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/site.css">
+</head>
+<body>
+
+<a class="skip" href="#work">Skip to work</a>
+
+<header class="site-header">
+  <div class="wrap">
+    <a class="brand" href="./">Ken Hung <span>/ KHSandoki</span></a>
+    <nav class="nav">
+      <a href="#work">Work</a>
+      <a href="#timeline" class="nav-hide-sm">Timeline</a>
+      <a href="#about">About</a>
+      <a href="https://github.com/KHSandoki">GitHub</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+
+<section class="hero">
+  <div class="wrap">
+    <h1>Ken Hung</h1>
+    <p class="role">Embedded firmware, tooling, and machines that had to be built cheap.</p>
+    <p class="lede">
+      I work across the line between hardware and software. In 2018 I turned a pile of
+      scrapped optical drives into a working 3D printer, because a real one cost more
+      than I had. Most of what I have built since started the same way &mdash; wanting a
+      specific thing to exist, then finding the cheapest honest route to it.
+    </p>
+    <p class="lede">
+      These days that means <strong>ESP32 firmware</strong>, <strong>C++ tooling</strong>,
+      and <strong>web applications</strong>, with a workshop still attached. Based in Taiwan.
+    </p>
+    <div class="hero-links">
+      <a class="btn btn-primary" href="#work">See the work</a>
+      <a class="btn" href="https://github.com/KHSandoki">
+        <svg viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27s1.36.09 2 .27c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8Z"/></svg>
+        GitHub
+      </a>
+      <a class="btn" href="mailto:k.h.sandoki@gmail.com">Email</a>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="work">
+  <div class="wrap">
+    <div class="section-head">
+      <h2>Selected work</h2>
+      <p>Seven projects across eight years, newest first. Two repositories are private &mdash;
+         those pages carry the write-up instead of a link.</p>
+    </div>
+
+    <div class="grid">
+
+      <a class="card featured" href="projects/clauge.html">
+        <div class="card-media">
+          <img src="media/clauge/hero@thumb.webp" srcset="media/clauge/hero@thumb.webp 800w, media/clauge/hero.webp 1800w" sizes="(max-width: 720px) 100vw, 52vw" width="800" height="533" alt="Clauge: a black light bar glowing in a blue-to-magenta gradient against a dark background" loading="eager" decoding="async">
+        </div>
+        <div class="card-body">
+          <p class="card-meta"><span>2026</span><span class="pill pill-private">Private repo</span></p>
+          <h3 class="card-title">Clauge</h3>
+          <p class="card-desc">
+            An ambient LED gauge that fills as your Claude usage limit fills, so you see
+            the wall coming before you hit it mid-task. The ESP32 fetches usage itself
+            every five minutes &mdash; unplug the computer and it keeps updating.
+          </p>
+          <div class="tags">
+            <span class="tag">ESP32-C3</span><span class="tag">C++</span><span class="tag">WS2812B</span><span class="tag">Chrome MV3</span><span class="tag">Dual-slot OTA</span>
+          </div>
+        </div>
+      </a>
+
+      <a class="card" href="projects/handler.html">
+        <div class="card-media is-blank"><span class="glyph">Handler</span></div>
+        <div class="card-body">
+          <p class="card-meta"><span>2025&ndash;26</span><span class="pill pill-private">Private repo</span></p>
+          <h3 class="card-title">Project Handler</h3>
+          <p class="card-desc">
+            A work-order system for Taiwanese car repair shops, designed tablet-first for
+            people standing next to a car with dirty hands. Domain model and API contract
+            done; UI in progress.
+          </p>
+          <div class="tags">
+            <span class="tag">SvelteKit</span><span class="tag">TypeScript</span><span class="tag">Prisma</span><span class="tag">PostgreSQL</span><span class="tag">PWA</span>
+          </div>
+        </div>
+      </a>
+
+      <a class="card" href="projects/kkcom.html">
+        <div class="card-media is-blank"><span class="glyph">KKCOM</span></div>
+        <div class="card-body">
+          <p class="card-meta"><span>2024&ndash;26</span><span class="pill pill-open">Open source</span></p>
+          <h3 class="card-title">KKCOM</h3>
+          <p class="card-desc">
+            A serial terminal built for hardware bring-up: saveable command tabs so you
+            stop retyping the same probe commands, and a single-file release build with
+            every asset embedded.
+          </p>
+          <div class="tags">
+            <span class="tag">C++17</span><span class="tag">Dear ImGui</span><span class="tag">Win32</span><span class="tag">CMake</span>
+          </div>
+        </div>
+      </a>
+
+      <a class="card" href="projects/sym-wolf-125.html">
+        <div class="card-media">
+          <img src="media/sym-wolf-125/hero@thumb.webp" width="800" height="533" alt="A SYM Wolf 125 rebuilt as a cafe racer, blue-green tank, parked on a street at dusk" loading="lazy" decoding="async">
+        </div>
+        <div class="card-body">
+          <p class="card-meta"><span>2022&ndash;23</span><span class="pill">Build</span></p>
+          <h3 class="card-title">SYM Wolf 125</h3>
+          <p class="card-desc">
+            A Taiwanese commuter single rebuilt into a cafe racer over a year, including
+            stripping and spraying the bodywork by hand. Mechanical work has no undo.
+          </p>
+          <div class="tags">
+            <span class="tag">Restoration</span><span class="tag">Fabrication</span><span class="tag">Paint</span>
+          </div>
+        </div>
+      </a>
+
+      <a class="card" href="projects/rexxar.html">
+        <div class="card-media">
+          <img src="media/rexxar/hero@thumb.webp" width="800" height="800" alt="A teal low-poly 3D-printed toolhead shroud with twin fan ports and a bed light, mounted on a printer gantry" loading="lazy" decoding="async">
+        </div>
+        <div class="card-body">
+          <p class="card-meta"><span>2022</span><span class="pill">Build</span></p>
+          <h3 class="card-title">Rexxar</h3>
+          <p class="card-desc">
+            A 3D printer built from the CR-10 CAD rather than a kit &mdash; extrusion cut to
+            length by hand, every part sourced individually, Klipper firmware and a Voron
+            toolhead. Under NT$7,000.
+          </p>
+          <div class="tags">
+            <span class="tag">Klipper</span><span class="tag">Voron toolhead</span><span class="tag">CAD</span><span class="tag">FDM</span>
+          </div>
+        </div>
+      </a>
+
+      <a class="card" href="projects/airtick.html">
+        <div class="card-media">
+          <img src="media/airtick/hero@thumb.webp" width="800" height="600" alt="AIRTICK: a digital clock with no circuit board, built entirely from bent bare copper wire, red seven-segment digits glowing" loading="lazy" decoding="async">
+        </div>
+        <div class="card-body">
+          <p class="card-meta"><span>2019</span><span class="pill">Competition</span></p>
+          <h3 class="card-title">AIRTICK</h3>
+          <p class="card-desc">
+            A digital clock with no circuit board and no insulated wire. Every connection
+            is bare copper soldered in mid-air, so the wiring is simultaneously the
+            circuit, the chassis and the lettering.
+          </p>
+          <div class="tags">
+            <span class="tag">AT89S51</span><span class="tag">8051 BASIC</span><span class="tag">Freeform</span>
+          </div>
+        </div>
+      </a>
+
+      <a class="card" href="projects/illuminator.html">
+        <div class="card-media">
+          <img src="media/illuminator/machine@thumb.webp" width="800" height="600" alt="Project Illuminator: a small 3D printer built from the steel plates and stepper sleds of scrapped optical drives, with a paper-belt conveyor bed" loading="lazy" decoding="async">
+        </div>
+        <div class="card-body">
+          <p class="card-meta"><span>2018&ndash;19</span><span class="pill">Competition</span></p>
+          <h3 class="card-title">Project Illuminator</h3>
+          <p class="card-desc">
+            A working FDM 3D printer built from scrapped optical drives for under
+            NT$2,000, then given a paper-belt conveyor so finished parts eject themselves
+            and the next job starts unattended.
+          </p>
+          <div class="tags">
+            <span class="tag">Arduino Mega</span><span class="tag">RAMPS 1.4</span><span class="tag">Repetier</span><span class="tag">Mechanism design</span>
+          </div>
+        </div>
+      </a>
+
+    </div>
+  </div>
+</section>
+
+<section class="section" id="timeline">
+  <div class="wrap">
+    <div class="section-head">
+      <h2>Timeline</h2>
+      <p>Eight years, from a pen plotter made of e-waste to firmware that updates itself.</p>
+    </div>
+    <ol class="timeline">
+      <li class="is-key">
+        <span class="yr">2026</span>
+        <span class="ev">Clauge</span> &mdash;
+        <span class="note">ESP32-C3 ambient usage gauge. 122 commits, April to July.</span>
+      </li>
+      <li>
+        <span class="yr">2025&ndash;2026</span>
+        <span class="ev">Project Handler</span> &mdash;
+        <span class="note">Repair-shop work-order system. Design and schema complete, build underway.</span>
+      </li>
+      <li>
+        <span class="yr">2024&ndash;2026</span>
+        <span class="ev">KKCOM</span> &mdash;
+        <span class="note">C++ serial terminal, rewritten from an earlier tool and still maintained.</span>
+      </li>
+      <li>
+        <span class="yr">2022&ndash;2023</span>
+        <span class="ev">SYM Wolf 125</span> &mdash;
+        <span class="note">A year-long cafe racer rebuild, bodywork sprayed by hand.</span>
+      </li>
+      <li>
+        <span class="yr">2022</span>
+        <span class="ev">Rexxar</span> &mdash;
+        <span class="note">Second self-built 3D printer &mdash; this time from CAD and a parts list.</span>
+      </li>
+      <li>
+        <span class="yr">2019</span>
+        <span class="ev">AIRTICK</span> &mdash;
+        <span class="note">PCB-less freeform clock. National High School Creative Invention Competition.</span>
+      </li>
+      <li class="is-key">
+        <span class="yr">2018&ndash;2019</span>
+        <span class="ev">Project Illuminator + MANUStar</span> &mdash;
+        <span class="note">3D printer from scrapped optical drives, then an auto-ejecting conveyor.
+        Entered in the national high school project competition two years running.</span>
+      </li>
+      <li>
+        <span class="yr">2018</span>
+        <span class="ev">The pen plotter</span> &mdash;
+        <span class="note">Where it all started: two optical-drive stepper sleds and a pen.</span>
+      </li>
+    </ol>
+  </div>
+</section>
+
+<section class="section" id="skills">
+  <div class="wrap">
+    <div class="section-head">
+      <h2>Skills</h2>
+    </div>
+    <div class="skills">
+      <div>
+        <h3>Embedded</h3>
+        <ul>
+          <li class="tag">ESP32-C3 / ESP-IDF</li><li class="tag">8051 / AT89S51</li>
+          <li class="tag">Arduino / AVR</li><li class="tag">WS2812B</li>
+          <li class="tag">OTA update &amp; rollback</li><li class="tag">UART / serial protocols</li>
+          <li class="tag">Stepper motion</li>
+        </ul>
+      </div>
+      <div>
+        <h3>Languages</h3>
+        <ul>
+          <li class="tag">C</li><li class="tag">C++17</li><li class="tag">TypeScript</li>
+          <li class="tag">Python</li><li class="tag">BASCOM BASIC</li><li class="tag">G-code</li>
+        </ul>
+      </div>
+      <div>
+        <h3>Web</h3>
+        <ul>
+          <li class="tag">SvelteKit</li><li class="tag">Tailwind</li><li class="tag">Express</li>
+          <li class="tag">Prisma</li><li class="tag">PostgreSQL</li><li class="tag">Zod</li>
+          <li class="tag">PWA / offline-first</li>
+        </ul>
+      </div>
+      <div>
+        <h3>Desktop &amp; tooling</h3>
+        <ul>
+          <li class="tag">Dear ImGui</li><li class="tag">Win32</li><li class="tag">CMake</li>
+          <li class="tag">Git</li><li class="tag">pnpm workspaces</li><li class="tag">Docker</li>
+        </ul>
+      </div>
+      <div>
+        <h3>Fabrication</h3>
+        <ul>
+          <li class="tag">FDM 3D printing</li><li class="tag">Klipper</li><li class="tag">CAD</li>
+          <li class="tag">Aluminium extrusion</li><li class="tag">Freeform circuits</li>
+          <li class="tag">Spray finishing</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="about">
+  <div class="wrap">
+    <div class="section-head">
+      <h2>About</h2>
+    </div>
+    <div class="prose">
+      <p>
+        I am Ken Hung, an engineer in Taiwan who is happiest when a project has both a
+        compiler and a soldering iron in it.
+      </p>
+      <p>
+        I started in the electronics department of a vocational high school, where the
+        cheapest way to own a 3D printer was to build one out of the optical drives the
+        school was throwing away. That machine took ten months and cost under NT$2,000,
+        and it taught me the thing I still work from: the expensive part of most products
+        is the packaging, not the capability.
+      </p>
+      <p>
+        The projects since have been a slow widening of that &mdash; from 8051 assembly-adjacent
+        BASIC to ESP32 firmware with staged OTA rollout, from a printer made of e-waste to
+        one built from CAD, from single binaries to full-stack applications. I care about
+        things that keep working when you are not watching them.
+      </p>
+      <div class="hero-links">
+        <a class="btn btn-primary" href="mailto:k.h.sandoki@gmail.com">k.h.sandoki@gmail.com</a>
+        <a class="btn" href="https://github.com/KHSandoki">github.com/KHSandoki</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <p>&copy; 2026 Ken Hung</p>
+    <nav>
+      <a href="#work">Work</a>
+      <a href="#about">About</a>
+      <a href="https://github.com/KHSandoki">GitHub</a>
+    </nav>
+  </div>
+</footer>
+
+</body>
 </html>
